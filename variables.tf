@@ -4,23 +4,28 @@ variable "aws_region" {
 }
 
 variable "aws_profile" {
-  default = "alessander"
+  type = string
+  description = "AWS user profile"
 }
 
 variable "name" {
-  default = "fargate"
+  type = string
+  description = "General name"
 }
 
 variable "environment" {
-  default = "test"
+  type = string
+  description = "Environment name"
 }
 
 variable "container_port" {
-  default = "80"
+  type = number
+  description = "Container Port"
 }
 
 variable "container_image" {
-  default = "nginx"
+  type = string
+  description = "Container Image"
 }
 
 # variable "app_name" {

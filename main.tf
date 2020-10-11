@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "task-test" {
    name        = "${var.name}-container-${var.environment}"
    image       = "${var.container_image}:latest"
    essential   = true
-   environment = var.environment
+   environment = [] # "test"
    portMappings = [{
      protocol      = "tcp"
      containerPort = var.container_port
@@ -136,8 +136,8 @@ resource "aws_ecs_service" "service-test" {
  scheduling_strategy                = "REPLICA"
 
  network_configuration {
-   security_groups  = aws_security_group.sg-ecs-tasks # var.ecs_service_security_groups
-   subnets          = data.aws_subnet_ids.subnets # var.subnets.*.id
+   security_groups  = [aws_security_group.sg-ecs-tasks.name,] # var.ecs_service_security_groups
+   subnets          = [data.aws_subnet_ids.subnets.id,] # var.subnets.*.id
    assign_public_ip = false
  }
 
