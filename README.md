@@ -1,0 +1,1 @@
+# aws-fargate-with-terraform
