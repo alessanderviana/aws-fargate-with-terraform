@@ -137,15 +137,15 @@ resource "aws_ecs_service" "service-test" {
 
  network_configuration {
    security_groups  = [aws_security_group.sg-ecs-tasks.name,] # var.ecs_service_security_groups
-   subnets          = [data.aws_subnet_ids.subnets.id,] # var.subnets.*.id
+   subnets          = [for s in data.aws_subnet.subnets : s.id] # var.subnets.*.id
    assign_public_ip = false
  }
 
- # load_balancer {
- #   target_group_arn = var.aws_alb_target_group_arn
- #   container_name   = "${var.name}-container-${var.environment}"
- #   container_port   = var.container_port
- # }
+ load_balancer {
+   target_group_arn = aws_alb_target_group.tgroup.arn # var.aws_alb_target_group_arn
+   container_name   = "${var.name}-container-${var.environment}"
+   container_port   = var.container_port
+ }
 
  lifecycle {
    ignore_changes = [task_definition, desired_count]
